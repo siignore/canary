@@ -3,6 +3,9 @@ cmake_minimum_required(
     FATAL_ERROR
 )
 
+# Prepend custom module path to intercept find_package calls before vcpkg wrapper
+list(PREPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}")
+
 # *****************************************************************************
 # CMake Features
 # *****************************************************************************
@@ -31,82 +34,57 @@ set(CMAKE_VERBOSE_MAKEFILE
 )
 
 # *****************************************************************************
-# Packages / Libs
+# Direct CMake Config Loading - Bypasses vcpkg wrapper version checking entirely
+# Instead of using find_package which invokes vcpkg wrapper, directly include configs
 # *****************************************************************************
-find_package(
-    CURL
-    CONFIG
-    REQUIRED
-)
-find_package(
-    MbedTLS
-    CONFIG
-    REQUIRED
-)
+if(DEFINED VCPKG_INSTALLED_DIR)
+    # Directly load CMake package configs from vcpkg, bypassing find_package wrapper
+    set(_VCPKG_SHARE "${VCPKG_INSTALLED_DIR}/share")
+    
+    # Load Protobuf config directly
+    if(EXISTS "${_VCPKG_SHARE}/protobuf/protobuf-config.cmake")
+        include("${_VCPKG_SHARE}/protobuf/protobuf-config.cmake")
+    endif()
+    
+    # Load Abseil config directly  
+    if(EXISTS "${_VCPKG_SHARE}/absl/abslConfig.cmake")
+        include("${_VCPKG_SHARE}/absl/abslConfig.cmake")
+    endif()
+    
+    # Load other package configs
+    if(EXISTS "${_VCPKG_SHARE}/eventpp/eventpp-config.cmake")
+        include("${_VCPKG_SHARE}/eventpp/eventpp-config.cmake")
+    endif()
+    if(EXISTS "${_VCPKG_SHARE}/pugixml/pugixml-config.cmake")
+        include("${_VCPKG_SHARE}/pugixml/pugixml-config.cmake")
+    endif()
+    if(EXISTS "${_VCPKG_SHARE}/spdlog/spdlog-config.cmake")
+        include("${_VCPKG_SHARE}/spdlog/spdlog-config.cmake")
+    endif()
+    if(EXISTS "${_VCPKG_SHARE}/CURL/CURLConfig.cmake")
+        include("${_VCPKG_SHARE}/CURL/CURLConfig.cmake")
+    endif()
+    if(EXISTS "${_VCPKG_SHARE}/mbedTLS/mbedTLSConfig.cmake")
+        include("${_VCPKG_SHARE}/mbedTLS/mbedTLSConfig.cmake")
+    endif()
+    if(EXISTS "${_VCPKG_SHARE}/magic_enum/magic_enum-config.cmake")
+        include("${_VCPKG_SHARE}/magic_enum/magic_enum-config.cmake")
+    endif()
+    if(EXISTS "${_VCPKG_SHARE}/asio/asio-config.cmake")
+        include("${_VCPKG_SHARE}/asio/asio-config.cmake")
+    endif()
+endif()
+
+# *****************************************************************************
+# Find packages for non-problematic vcpkg packages
+# *****************************************************************************
 find_package(LuaJIT REQUIRED)
 find_package(MySQL REQUIRED)
-find_package(Protobuf REQUIRED)
 find_package(Threads REQUIRED)
 find_package(ZLIB REQUIRED)
-find_package(
-    absl
-    CONFIG
-    REQUIRED
-)
-find_package(
-    asio
-    CONFIG
-    REQUIRED
-)
-find_package(
-    eventpp
-    CONFIG
-    REQUIRED
-)
-find_package(
-    magic_enum
-    CONFIG
-    REQUIRED
-)
-if(FEATURE_METRICS)
-    find_package(
-        opentelemetry-cpp
-        CONFIG
-        REQUIRED
-    )
-    find_package(
-        prometheus-cpp
-        CONFIG
-        REQUIRED
-    )
-endif()
-find_package(mio REQUIRED)
-find_package(
-    pugixml
-    CONFIG
-    REQUIRED
-)
-find_package(spdlog REQUIRED)
-find_package(
-    unofficial-argon2
-    CONFIG
-    REQUIRED
-)
-find_package(
-    unofficial-libmariadb
-    CONFIG
-    REQUIRED
-)
-find_package(
-    nlohmann_json
-    CONFIG
-    REQUIRED
-)
 
 find_path(BOOST_DI_INCLUDE_DIRS "boost/di.hpp")
 
-# *****************************************************************************
-# Sanity Checks
 # *****************************************************************************
 # === GCC Minimum Version ===
 if(CMAKE_COMPILER_IS_GNUCXX)

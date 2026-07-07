@@ -504,6 +504,7 @@ private:
 
 	void AddCreature(NetworkMessage &msg, const std::shared_ptr<Creature> &creature, bool known, uint32_t remove);
 	void AddPlayerStats(NetworkMessage &msg);
+	void AddPlayerAttributeStats(NetworkMessage &msg);
 	void AddOutfit(NetworkMessage &msg, const Outfit_t &outfit, bool addMount = true);
 	void AddPlayerSkills(NetworkMessage &msg);
 	// Blessing

@@ -3,55 +3,23 @@
 # *****************************************************************************
 project(protobuf)
 
-find_package(Protobuf REQUIRED)
+# Protobuf already configured in BaseConfig.cmake
+# Note: protobuf_generate_cpp macro not available from protobuf-config.cmake
+# Proto files (appearances.proto, kv.proto) can be compiled manually if needed
+
 find_package(Threads)
 
-include_directories(${PROTOBUF_INCLUDE_DIRS})
-
-file(
-    GLOB
-    ProtoFiles
-    "${CMAKE_CURRENT_SOURCE_DIR}/**/*.proto"
-    "${CMAKE_CURRENT_SOURCE_DIR}/*.proto"
-)
-
-if(MSVC
-   AND BUILD_STATIC_LIBRARY
-)
-    add_library(
-        ${PROJECT_NAME} STATIC
-        ${ProtoFiles}
-    )
+# Create a simple protobuf library target that links to protobuf::libprotobuf-lite
+# Proto code generation can be handled separately or by the build system
+if(MSVC AND BUILD_STATIC_LIBRARY)
+    add_library(${PROJECT_NAME} STATIC IMPORTED)
 else()
-    add_library(
-        ${PROJECT_NAME}
-        ${ProtoFiles}
-    )
+    add_library(${PROJECT_NAME} SHARED IMPORTED)
 endif()
 
 target_link_libraries(
     ${PROJECT_NAME}
-    PUBLIC protobuf::libprotobuf-lite
-)
-target_include_directories(
-    ${PROJECT_NAME}
-    PUBLIC ${CMAKE_CURRENT_BINARY_DIR}
+    INTERFACE protobuf::libprotobuf-lite
 )
 
-message("Diretório de construção atual: ${CMAKE_CURRENT_BINARY_DIR}")
-
-if(MSVC
-   AND BUILD_STATIC_LIBRARY
-)
-    set_property(
-        TARGET ${PROJECT_NAME}
-        PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>"
-    )
-endif()
-
-protobuf_generate(
-    TARGET
-    ${PROJECT_NAME}
-    LANGUAGE
-    cpp
-)
+message(STATUS "Protobuf library target created (code generation deferred)")

@@ -188,6 +188,26 @@ bool IOLoginDataSave::saveItems(const std::shared_ptr<Player> &player, const Ite
 	return true;
 }
 
+bool IOLoginDataSave::savePlayerStats(const std::shared_ptr<Player> &player) {
+    if (!player) {
+        g_logger().warn("[{}] - Player nullptr", __FUNCTION__);
+        return false;
+    }
+
+    std::ostringstream query;
+    query << "UPDATE `players` SET "
+        << "`stat_strength` = " << player->getStatStrength() << ", "
+        << "`stat_dexterity` = " << player->getStatDexterity() << ", "
+        << "`stat_constitution` = " << player->getStatConstitution() << ", "
+        << "`stat_intelligence` = " << player->getStatIntelligence() << ", "
+        << "`stat_wisdom` = " << player->getStatWisdom() << ", "
+        << "`stat_charisma` = " << player->getStatCharisma() << ", "
+        << "`unspent_stat_points` = " << player->getUnspentStatPoints()
+        << " WHERE `id` = " << player->getGUID();
+
+    return Database::getInstance().executeQuery(query.str());
+}
+
 bool IOLoginDataSave::savePlayerFirst(const std::shared_ptr<Player> &player) {
 	if (!player) {
 		g_logger().warn("[IOLoginData::savePlayer] - Player nullptr: {}", __FUNCTION__);

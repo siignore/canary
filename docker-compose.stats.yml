@@ -1,0 +1,95 @@
+---
+# Docker Compose for testing Canary with Player Stat System
+# Usage: docker-compose -f docker-compose.stats.yml up -d
+name: otbr-stats
+
+services:
+  db:
+    image: mariadb:11.4
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: "${CANARY_DB_NAME:-canary}"
+      MARIADB_USER: "${CANARY_DB_USER:-canary}"
+      MARIADB_PASSWORD: "${CANARY_DB_PASSWORD:-canary}"
+      MARIADB_ROOT_PASSWORD: "${CANARY_DB_ROOT_PASSWORD:-root}"
+    networks:
+      - canary-net
+    volumes:
+      - db-volume:/var/lib/mysql
+      # Mount init SQL scripts including stat system migration
+      - ./docker/data:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    ports:
+      - "3306:3306"
+
+  server:
+    image: "${CANARY_IMAGE:-ghcr.io/opentibiabr/canary:latest}"
+    restart: unless-stopped
+    environment:
+      CANARY_DB_HOST: "${CANARY_DB_HOST:-db}"
+      CANARY_DB_PORT: "${CANARY_DB_PORT:-3306}"
+      CANARY_DB_NAME: "${CANARY_DB_NAME:-canary}"
+      CANARY_DB_USER: "${CANARY_DB_USER:-canary}"
+      CANARY_DB_PASSWORD: "${CANARY_DB_PASSWORD:-canary}"
+      CANARY_SERVER_NAME: "${CANARY_SERVER_NAME:-Canary Stats Test}"
+      CANARY_SERVER_IP: "${CANARY_SERVER_IP:-0.0.0.0}"
+      CANARY_LOGIN_PORT: "${CANARY_LOGIN_PORT:-7171}"
+      CANARY_GAME_PORT: "${CANARY_GAME_PORT:-7172}"
+      CANARY_STATUS_PORT: "${CANARY_STATUS_PORT:-7173}"
+      CANARY_TEST_ACCOUNTS: "${CANARY_TEST_ACCOUNTS:-true}"
+      CANARY_DATA_PACK: "${CANARY_DATA_PACK:-data-otservbr-global}"
+      CANARY_MAP_URL: "${CANARY_MAP_URL:-https://github.com/opentibiabr/canary/releases/download/v3.6.1/otservbr.otbm}"
+    networks:
+      - canary-net
+    ports:
+      - "${CANARY_LOGIN_PORT:-7171}:${CANARY_LOGIN_PORT:-7171}"
+      - "${CANARY_GAME_PORT:-7172}:${CANARY_GAME_PORT:-7172}"
+      - "${CANARY_STATUS_PORT:-7173}:${CANARY_STATUS_PORT:-7173}"
+    volumes:
+      - server-data:/data
+      # Mount stat system Lua scripts - these override the container scripts
+      - ./data/scripts/talkactions/player/stats.lua:/data/scripts/talkactions/player/stats.lua:ro
+      - ./data/scripts/talkactions/player/addstat.lua:/data/scripts/talkactions/player/addstat.lua:ro
+    depends_on:
+      db:
+        condition: service_healthy
+
+  myaac:
+    image: slawkens/myaac:develop
+    restart: unless-stopped
+    environment:
+      CANARY_DB_HOST: "${CANARY_DB_HOST:-db}"
+      CANARY_DB_PORT: "${CANARY_DB_PORT:-3306}"
+      CANARY_DB_NAME: "${CANARY_DB_NAME:-canary}"
+      CANARY_DB_USER: "${CANARY_DB_USER:-canary}"
+      CANARY_DB_PASSWORD: "${CANARY_DB_PASSWORD:-canary}"
+    networks:
+      - canary-net
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+
+  web:
+    image: nginx:alpine
+    restart: unless-stopped
+    networks:
+      - canary-net
+    ports:
+      - "8088:80"
+    volumes:
+      - ./docker/quickstart/login-server:/usr/share/nginx/html:ro
+    depends_on:
+      - server
+
+volumes:
+  db-volume:
+  server-data:
+
+networks:
+  canary-net:
+    driver: bridge

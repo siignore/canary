@@ -5302,8 +5302,13 @@ void ProtocolGame::sendStats() {
 	}
 
 	NetworkMessage msg;
-	AddPlayerStats(msg);
-	writeToOutputBuffer(msg);
+    AddPlayerStats(msg);
+    writeToOutputBuffer(msg);
+    
+    // Send attribute stats too
+    NetworkMessage attrMsg;
+    AddPlayerAttributeStats(attrMsg);
+    writeToOutputBuffer(attrMsg);
 }
 
 void ProtocolGame::sendBasicData() {
@@ -9335,6 +9340,18 @@ void ProtocolGame::AddPlayerStats(NetworkMessage &msg) {
 		msg.add<uint32_t>(player->getManaShield()); // remaining mana shield
 		msg.add<uint32_t>(player->getMaxManaShield()); // total mana shield
 	}
+}
+
+void ProtocolGame::AddPlayerAttributeStats(NetworkMessage &msg) {
+    msg.addByte(0xA5);  // New message type for attribute stats
+    
+    msg.addByte(player->getStatStrength());
+    msg.addByte(player->getStatDexterity());
+    msg.addByte(player->getStatConstitution());
+    msg.addByte(player->getStatIntelligence());
+    msg.addByte(player->getStatWisdom());
+    msg.addByte(player->getStatCharisma());
+    msg.add<uint16_t>(player->getUnspentStatPoints());
 }
 
 void ProtocolGame::AddPlayerSkills(NetworkMessage &msg) {

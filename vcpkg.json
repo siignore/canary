@@ -25,9 +25,7 @@
   "features": {
     "tests": {
       "description": "Dependencies required to build tests.",
-      "dependencies": [
-        "gtest"
-      ]
+      "dependencies": ["gtest"]
     },
     "metrics": {
       "description": "Enable OpenTelemetry metrics exporters",
@@ -35,13 +33,10 @@
         {
           "name": "opentelemetry-cpp",
           "default-features": true,
-          "features": [
-            "otlp-http",
-            "prometheus"
-          ]
+          "features": ["otlp-http", "prometheus"]
         }
       ]
     }
   },
-  "builtin-baseline": "cd61e1e26a038e82d6550a3ebbe0fbbfe7da78e3"
+  "builtin-baseline": "cb2981c4e03d421fa03b9bb5044cd1986180e7e4"
 }

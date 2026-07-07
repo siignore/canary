@@ -1,0 +1,297 @@
+-- Running vcpkg install
+Detecting compiler hash for triplet x64-windows...
+Compiler found: C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.51.36231/bin/Hostx64/x64/cl.exe
+Detecting compiler hash for triplet x64-windows-static-release...
+Compiler found: C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.51.36231/bin/Hostx64/x64/cl.exe
+The following packages are already installed:
+    abseil:x64-windows-static-release@20260107.1#2
+  * abseil:x64-windows@20260107.1#2
+    argon2:x64-windows-static-release@20190702#1
+    asio:x64-windows-static-release@1.32.0
+    atomic-queue:x64-windows-static-release@1.7.3
+    bext-di:x64-windows-static-release@1.3.2
+    bshoshany-thread-pool:x64-windows-static-release@5.1.0
+  * utf8-range:x64-windows@6.33.4
+  * vcpkg-cmake:x64-windows@2024-04-23
+  * vcpkg-cmake-config:x64-windows@2024-05-23
+  * vcpkg-cmake-get-vars:x64-windows@2025-05-29
+The following packages will be built and installed:
+    curl[core,non-http,ssl,sspi]:x64-windows-static-release@8.19.0 -- git+https://github.com/microsoft/vcpkg@2826bbcd8b83d191393e58842c2baa969b9363f9
+    eventpp:x64-windows-static-release@0.1.3#1 -- git+https://github.com/microsoft/vcpkg@4c5fdcbe4047f79d958a4b62342ad444a04d2090
+  * fmt:x64-windows-static-release@12.1.0 -- git+https://github.com/microsoft/vcpkg@936231a2c765082457d348a8781ea9d3610eb331
+    libmariadb[core,iconv]:x64-windows-static-release@3.4.8 -- git+https://github.com/microsoft/vcpkg@17b008dfbe6f91f57f8c667906afa67b17d04cc3
+    luajit:x64-windows-static-release@2026-03-27 -- git+https://github.com/microsoft/vcpkg@96ba0d1f559dbab8a71a2b887928b87bd3e3be9b
+    magic-enum:x64-windows-static-release@0.9.7#1 -- git+https://github.com/microsoft/vcpkg@9ab95f56c0327e8b6c0190fae3d975439161ffaa
+    mbedtls:x64-windows-static-release@3.6.5 -- git+https://github.com/microsoft/vcpkg@26a9705b24467d80e1382519bf8721db6702a278
+    mio:x64-windows-static-release@2023-03-03 -- git+https://github.com/microsoft/vcpkg@32e1d9bb77df214fec0e6ea240671114e3d3df30
+    nlohmann-json:x64-windows-static-release@3.12.0#2 -- git+https://github.com/microsoft/vcpkg@ac3b8821cf486e45dd543bef2a4ba1d1ba230258
+    parallel-hashmap:x64-windows-static-release@2.0.0 -- git+https://github.com/microsoft/vcpkg@26448d76360f5c0b1b018e1f68fea9d24b598246
+  * protobuf:x64-windows@6.33.4#1 -- git+https://github.com/microsoft/vcpkg@82a850caf35034a45596845a1d6e734b82f6a79a
+    protobuf:x64-windows-static-release@6.33.4#1 -- git+https://github.com/microsoft/vcpkg@82a850caf35034a45596845a1d6e734b82f6a79a
+    pugixml:x64-windows-static-release@1.15#1 -- git+https://github.com/microsoft/vcpkg@e210d4650721b32c1e83bf0da6a0cf4c145bbbd9
+    spdlog[core,fmt,tz-offset]:x64-windows-static-release@1.17.0 -- git+https://github.com/microsoft/vcpkg@7971db787034aef4204ace90e0f94fdbab808f75
+  * utf8-range:x64-windows-static-release@6.33.4 -- git+https://github.com/microsoft/vcpkg@9f24dda3a883d4026bb1122c50077c07c9a32f47
+    zlib:x64-windows-static-release@1.3.1 -- git+https://github.com/microsoft/vcpkg@3f05e04b9aededb96786a911a16193cdb711f0c9
+Additional packages (*) will be modified to complete this operation.
+Restored 0 package(s) from C:\Users\siign\AppData\Local\vcpkg\archives in 744 us. Use --debug to see more details.
+Installing 1/16 zlib:x64-windows-static-release@1.3.1...
+zlib:x64-windows-static-release@1.3.1 package ABI: 06267ee166a0eaf150d8811aeff7e0626d4a0066790545f0b2f50e131420da53
+Building zlib:x64-windows-static-release@1.3.1...
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\vcpkg\triplets\community\x64-windows-static-release.cmake: info: loaded community triplet from here. Community triplets are not built in the curated registry and are thus less likely to succeed.
+C:\Users\siign\AppData\Local\vcpkg\registries\git-trees\3f05e04b9aededb96786a911a16193cdb711f0c9: info: installing from git registry git+https://github.com/microsoft/vcpkg@3f05e04b9aededb96786a911a16193cdb711f0c9
+-- Using cached madler-zlib-v1.3.1.tar.gz
+-- Cleaning sources at H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/blds/zlib/src/v1.3.1-2e5db616bf.clean. Use --editable to skip cleaning for the packages you specify.
+-- Extracting source C:/Users/siign/AppData/Local/vcpkg/downloads/madler-zlib-v1.3.1.tar.gz
+-- Applying patch 0001-Prevent-invalid-inclusions-when-HAVE_-is-set-to-0.patch
+-- Applying patch 0002-build-static-or-shared-not-both.patch
+-- Applying patch 0003-android-and-mingw-fixes.patch
+-- Using source at H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/blds/zlib/src/v1.3.1-2e5db616bf.clean
+-- Configuring x64-windows-static-release
+-- Building x64-windows-static-release-rel
+-- Installing: H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/pkgs/zlib_x64-windows-static-release/share/zlib/vcpkg-cmake-wrapper.cmake
+-- Fixing pkgconfig file: H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/pkgs/zlib_x64-windows-static-release/lib/pkgconfig/zlib.pc
+-- Using cached msys2-mingw-w64-x86_64-pkgconf-1~2.5.1-1-any.pkg.tar.zst
+-- Using cached msys2-msys2-runtime-3.6.5-1-x86_64.pkg.tar.zst
+-- Using msys root at C:/Users/siign/AppData/Local/vcpkg/downloads/tools/msys2/3e71d1f8e22ab23f
+-- Installing: H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/pkgs/zlib_x64-windows-static-release/share/zlib/copyright
+-- Performing post-build validation
+Starting submission of zlib:x64-windows-static-release@1.3.1 to 1 binary cache(s) in the background
+Elapsed time to handle zlib:x64-windows-static-release: 12 s
+Installing 2/16 curl[core,non-http,ssl,sspi]:x64-windows-static-release@8.19.0...
+curl[core,non-http,ssl,sspi]:x64-windows-static-release@8.19.0 package ABI: df6c3783aa026adcad9c133ce36e5c0bc0847d48272f98120ddfd807f850e8ad
+Building curl[core,non-http,ssl,sspi]:x64-windows-static-release@8.19.0...
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\vcpkg\triplets\community\x64-windows-static-release.cmake: info: loaded community triplet from here. Community triplets are not built in the curated registry and are thus less likely to succeed.
+C:\Users\siign\AppData\Local\vcpkg\registries\git-trees\2826bbcd8b83d191393e58842c2baa969b9363f9: info: installing from git registry git+https://github.com/microsoft/vcpkg@2826bbcd8b83d191393e58842c2baa969b9363f9
+-- Using cached curl-curl-curl-8_19_0.tar.gz
+-- Extracting source C:/Users/siign/AppData/Local/vcpkg/downloads/curl-curl-curl-8_19_0.tar.gz
+-- Applying patch dependencies.patch
+-- Using source at H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/blds/curl/src/url-8_19_0-541fed44c9.clean
+-- Using cached msys2-mingw-w64-x86_64-pkgconf-1~2.5.1-1-any.pkg.tar.zst
+-- Using cached msys2-msys2-runtime-3.6.5-1-x86_64.pkg.tar.zst
+-- Using msys root at C:/Users/siign/AppData/Local/vcpkg/downloads/tools/msys2/3e71d1f8e22ab23f
+-- Configuring x64-windows-static-release
+-- Building x64-windows-static-release-rel
+-- Fixing pkgconfig file: H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/pkgs/curl_x64-windows-static-release/lib/pkgconfig/libcurl.pc
+-- Installing: H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/pkgs/curl_x64-windows-static-release/share/curl/vcpkg-cmake-wrapper.cmake
+-- Installing: H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/pkgs/curl_x64-windows-static-release/share/curl/usage
+-- Performing post-build validation
+Starting submission of curl[core,non-http,ssl,sspi]:x64-windows-static-release@8.19.0 to 1 binary cache(s) in the background
+Elapsed time to handle curl:x64-windows-static-release: 44 s
+Completed submission of zlib:x64-windows-static-release@1.3.1 to 1 binary cache(s) in 119 ms
+Installing 3/16 eventpp:x64-windows-static-release@0.1.3#1...
+eventpp:x64-windows-static-release@0.1.3#1 package ABI: a8bdb06a1b12350cb2b0ca8c4ae0716a00ce939967244896081fbc2a0e819fbd
+Building eventpp:x64-windows-static-release@0.1.3#1...
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\vcpkg\triplets\community\x64-windows-static-release.cmake: info: loaded community triplet from here. Community triplets are not built in the curated registry and are thus less likely to succeed.
+C:\Users\siign\AppData\Local\vcpkg\registries\git-trees\4c5fdcbe4047f79d958a4b62342ad444a04d2090: info: installing from git registry git+https://github.com/microsoft/vcpkg@4c5fdcbe4047f79d958a4b62342ad444a04d2090
+-- Using cached wqking-eventpp-v0.1.3.tar.gz
+-- Extracting source C:/Users/siign/AppData/Local/vcpkg/downloads/wqking-eventpp-v0.1.3.tar.gz
+-- Using source at H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/blds/eventpp/src/v0.1.3-abb93242b0.clean
+-- Configuring x64-windows-static-release
+-- Building x64-windows-static-release-rel
+-- Installing: H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/pkgs/eventpp_x64-windows-static-release/share/eventpp/copyright
+-- Performing post-build validation
+Starting submission of eventpp:x64-windows-static-release@0.1.3#1 to 1 binary cache(s) in the background
+Elapsed time to handle eventpp:x64-windows-static-release: 6.8 s
+Completed submission of curl[core,non-http,ssl,sspi]:x64-windows-static-release@8.19.0 to 1 binary cache(s) in 2.9 s
+Installing 4/16 libmariadb[core,iconv]:x64-windows-static-release@3.4.8...
+libmariadb[core,iconv]:x64-windows-static-release@3.4.8 package ABI: 3e741a2f043ff68b09cb3eb0fd0bb493b7924f2062bf8c74430dad231ef29654
+Building libmariadb[core,iconv]:x64-windows-static-release@3.4.8...
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\vcpkg\triplets\community\x64-windows-static-release.cmake: info: loaded community triplet from here. Community triplets are not built in the curated registry and are thus less likely to succeed.
+C:\Users\siign\AppData\Local\vcpkg\registries\git-trees\17b008dfbe6f91f57f8c667906afa67b17d04cc3: info: installing from git registry git+https://github.com/microsoft/vcpkg@17b008dfbe6f91f57f8c667906afa67b17d04cc3
+-- Using cached mariadb-corporation-mariadb-connector-c-v3.4.8.tar.gz
+-- Extracting source C:/Users/siign/AppData/Local/vcpkg/downloads/mariadb-corporation-mariadb-connector-c-v3.4.8.tar.gz
+-- Applying patch compiler-flags.diff
+-- Applying patch dependencies.diff
+-- Applying patch disable-mariadb_config.diff
+-- Applying patch library-linkage.diff
+-- Applying patch cmake-export.diff
+-- Applying patch no-abs-path.diff
+-- Using source at H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/blds/libmariadb/src/v3.4.8-091ce58945.clean
+-- Configuring x64-windows-static-release
+-- Building x64-windows-static-release-rel
+-- Fixing pkgconfig file: H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/pkgs/libmariadb_x64-windows-static-release/lib/pkgconfig/libmariadb.pc
+-- Using cached msys2-mingw-w64-x86_64-pkgconf-1~2.5.1-1-any.pkg.tar.zst
+-- Using cached msys2-msys2-runtime-3.6.5-1-x86_64.pkg.tar.zst
+-- Using msys root at C:/Users/siign/AppData/Local/vcpkg/downloads/tools/msys2/3e71d1f8e22ab23f
+-- Installing: H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/pkgs/libmariadb_x64-windows-static-release/share/libmariadb/copyright
+-- Performing post-build validation
+Starting submission of libmariadb[core,iconv]:x64-windows-static-release@3.4.8 to 1 binary cache(s) in the background
+Elapsed time to handle libmariadb:x64-windows-static-release: 18 s
+Completed submission of eventpp:x64-windows-static-release@0.1.3#1 to 1 binary cache(s) in 95.7 ms
+Installing 5/16 luajit:x64-windows-static-release@2026-03-27...
+luajit:x64-windows-static-release@2026-03-27 package ABI: 38a8f63d0f7eeaaf47762c54ed43fb86bc5f07cca3c47948224f5d6658d4b166
+Building luajit:x64-windows-static-release@2026-03-27...
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\vcpkg\triplets\community\x64-windows-static-release.cmake: info: loaded community triplet from here. Community triplets are not built in the curated registry and are thus less likely to succeed.
+C:\Users\siign\AppData\Local\vcpkg\registries\git-trees\96ba0d1f559dbab8a71a2b887928b87bd3e3be9b: info: installing from git registry git+https://github.com/microsoft/vcpkg@96ba0d1f559dbab8a71a2b887928b87bd3e3be9b
+-- Using cached LuaJIT-LuaJIT-fbb36bb6bfa88716a47c58bcf9ce9f2ef752abac.tar.gz
+-- Extracting source C:/Users/siign/AppData/Local/vcpkg/downloads/LuaJIT-LuaJIT-fbb36bb6bfa88716a47c58bcf9ce9f2ef752abac.tar.gz
+-- Applying patch msvcbuild.patch
+-- Applying patch 003-do-not-set-macosx-deployment-target.patch
+-- Using source at H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/blds/luajit/src/2ef752abac-57cbb1fc1d.clean
+-- Getting CMake variables for x64-windows-static-release
+-- Loading CMake variables from H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/blds/luajit/cmake-get-vars_C_CXX-x64-windows-static-release.cmake.log
+-- Getting CMake variables for x64-windows-static-release
+-- Building and installing x64-windows-static-release-rel
+-- Installing: H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/pkgs/luajit_x64-windows-static-release/lib/pkgconfig/luajit.pc
+-- Fixing pkgconfig file: H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/pkgs/luajit_x64-windows-static-release/lib/pkgconfig/luajit.pc
+-- Using cached msys2-mingw-w64-x86_64-pkgconf-1~2.5.1-1-any.pkg.tar.zst
+-- Using cached msys2-msys2-runtime-3.6.5-1-x86_64.pkg.tar.zst
+-- Using msys root at C:/Users/siign/AppData/Local/vcpkg/downloads/tools/msys2/3e71d1f8e22ab23f
+-- Installing: H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/pkgs/luajit_x64-windows-static-release/share/luajit/copyright
+-- Performing post-build validation
+Starting submission of luajit:x64-windows-static-release@2026-03-27 to 1 binary cache(s) in the background
+Elapsed time to handle luajit:x64-windows-static-release: 39 s
+Completed submission of libmariadb[core,iconv]:x64-windows-static-release@3.4.8 to 1 binary cache(s) in 771 ms
+Installing 6/16 magic-enum:x64-windows-static-release@0.9.7#1...
+magic-enum:x64-windows-static-release@0.9.7#1 package ABI: 96b2d4b80da45c77b6757dd14246ef7ee4938d0fc22ec0f93ebae4123dd35026
+Building magic-enum:x64-windows-static-release@0.9.7#1...
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\vcpkg\triplets\community\x64-windows-static-release.cmake: info: loaded community triplet from here. Community triplets are not built in the curated registry and are thus less likely to succeed.
+C:\Users\siign\AppData\Local\vcpkg\registries\git-trees\9ab95f56c0327e8b6c0190fae3d975439161ffaa: info: installing from git registry git+https://github.com/microsoft/vcpkg@9ab95f56c0327e8b6c0190fae3d975439161ffaa
+-- Using cached Neargye-magic_enum-v0.9.7.tar.gz
+-- Extracting source C:/Users/siign/AppData/Local/vcpkg/downloads/Neargye-magic_enum-v0.9.7.tar.gz
+-- Using source at H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/blds/magic-enum/src/v0.9.7-05685ee05c.clean
+-- Configuring x64-windows-static-release
+-- Building x64-windows-static-release-rel
+-- Fixing pkgconfig file: H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/pkgs/magic-enum_x64-windows-static-release/share/pkgconfig/magic_enum.pc
+-- Using cached msys2-mingw-w64-x86_64-pkgconf-1~2.5.1-1-any.pkg.tar.zst
+-- Using cached msys2-msys2-runtime-3.6.5-1-x86_64.pkg.tar.zst
+-- Using msys root at C:/Users/siign/AppData/Local/vcpkg/downloads/tools/msys2/3e71d1f8e22ab23f
+-- Installing: H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/pkgs/magic-enum_x64-windows-static-release/share/magic-enum/copyright
+-- Installing: H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/pkgs/magic-enum_x64-windows-static-release/share/magic-enum/usage
+-- Performing post-build validation
+Starting submission of magic-enum:x64-windows-static-release@0.9.7#1 to 1 binary cache(s) in the background
+Elapsed time to handle magic-enum:x64-windows-static-release: 3.6 s
+Completed submission of luajit:x64-windows-static-release@2026-03-27 to 1 binary cache(s) in 1.9 s
+Installing 7/16 mbedtls:x64-windows-static-release@3.6.5...
+mbedtls:x64-windows-static-release@3.6.5 package ABI: d057f7d003097b05b45456df280123e522d03ea37e55c24029e84f15be710ae7
+Building mbedtls:x64-windows-static-release@3.6.5...
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\vcpkg\triplets\community\x64-windows-static-release.cmake: info: loaded community triplet from here. Community triplets are not built in the curated registry and are thus less likely to succeed.
+C:\Users\siign\AppData\Local\vcpkg\registries\git-trees\26a9705b24467d80e1382519bf8721db6702a278: info: installing from git registry git+https://github.com/microsoft/vcpkg@26a9705b24467d80e1382519bf8721db6702a278
+-- Using cached Mbed-TLS-mbedtls-v3.6.5.tar.gz
+-- Extracting source C:/Users/siign/AppData/Local/vcpkg/downloads/Mbed-TLS-mbedtls-v3.6.5.tar.gz
+-- Applying patch enable-pthread.patch
+-- Using source at H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/blds/mbedtls/src/v3.6.5-9a14cad72c.clean
+-- Configuring x64-windows-static-release
+-- Building x64-windows-static-release-rel
+-- Fixing pkgconfig file: H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/pkgs/mbedtls_x64-windows-static-release/lib/pkgconfig/mbedcrypto.pc
+-- Fixing pkgconfig file: H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/pkgs/mbedtls_x64-windows-static-release/lib/pkgconfig/mbedtls.pc
+-- Fixing pkgconfig file: H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/pkgs/mbedtls_x64-windows-static-release/lib/pkgconfig/mbedx509.pc
+-- Using cached msys2-mingw-w64-x86_64-pkgconf-1~2.5.1-1-any.pkg.tar.zst
+-- Using cached msys2-msys2-runtime-3.6.5-1-x86_64.pkg.tar.zst
+-- Using msys root at C:/Users/siign/AppData/Local/vcpkg/downloads/tools/msys2/3e71d1f8e22ab23f
+-- Installing: H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/pkgs/mbedtls_x64-windows-static-release/share/mbedtls/copyright
+-- Performing post-build validation
+Starting submission of mbedtls:x64-windows-static-release@3.6.5 to 1 binary cache(s) in the background
+Elapsed time to handle mbedtls:x64-windows-static-release: 29 s
+Completed submission of magic-enum:x64-windows-static-release@0.9.7#1 to 1 binary cache(s) in 70.5 ms
+Installing 8/16 mio:x64-windows-static-release@2023-03-03...
+mio:x64-windows-static-release@2023-03-03 package ABI: abcb71f54187c6b3cf295bf9465616c363e1c701908bc4dff394e7b0358f30f7
+Building mio:x64-windows-static-release@2023-03-03...
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\vcpkg\triplets\community\x64-windows-static-release.cmake: info: loaded community triplet from here. Community triplets are not built in the curated registry and are thus less likely to succeed.
+C:\Users\siign\AppData\Local\vcpkg\registries\git-trees\32e1d9bb77df214fec0e6ea240671114e3d3df30: info: installing from git registry git+https://github.com/microsoft/vcpkg@32e1d9bb77df214fec0e6ea240671114e3d3df30
+-- Using cached mandreyel-mio-8b6b7d878c89e81614d05edca7936de41ccdd2da.tar.gz
+-- Extracting source C:/Users/siign/AppData/Local/vcpkg/downloads/mandreyel-mio-8b6b7d878c89e81614d05edca7936de41ccdd2da.tar.gz
+-- Using source at H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/blds/mio/src/e41ccdd2da-976ceb8069.clean
+-- Configuring x64-windows-static-release
+-- Building x64-windows-static-release-rel
+-- Installing: H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/pkgs/mio_x64-windows-static-release/share/mio/copyright
+-- Performing post-build validation
+Starting submission of mio:x64-windows-static-release@2023-03-03 to 1 binary cache(s) in the background
+Elapsed time to handle mio:x64-windows-static-release: 6.2 s
+Completed submission of mbedtls:x64-windows-static-release@3.6.5 to 1 binary cache(s) in 956 ms
+Installing 9/16 nlohmann-json:x64-windows-static-release@3.12.0#2...
+nlohmann-json:x64-windows-static-release@3.12.0#2 package ABI: d88794495e21fcf662a03a84c120cd5619f6f644208c062cab39e042e8a57054
+Building nlohmann-json:x64-windows-static-release@3.12.0#2...
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\vcpkg\triplets\community\x64-windows-static-release.cmake: info: loaded community triplet from here. Community triplets are not built in the curated registry and are thus less likely to succeed.
+C:\Users\siign\AppData\Local\vcpkg\registries\git-trees\ac3b8821cf486e45dd543bef2a4ba1d1ba230258: info: installing from git registry git+https://github.com/microsoft/vcpkg@ac3b8821cf486e45dd543bef2a4ba1d1ba230258
+-- Using cached nlohmann-json-v3.12.0.tar.gz
+-- Extracting source C:/Users/siign/AppData/Local/vcpkg/downloads/nlohmann-json-v3.12.0.tar.gz
+-- Applying patch fix-4736_char8_t.patch
+-- Applying patch fix-4742_std_optional.patch
+-- Using source at H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/blds/nlohmann-json/src/v3.12.0-89fed620e6.clean
+-- Configuring x64-windows-static-release
+-- Building x64-windows-static-release-rel
+-- Fixing pkgconfig file: H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/pkgs/nlohmann-json_x64-windows-static-release/share/pkgconfig/nlohmann_json.pc
+-- Using cached msys2-mingw-w64-x86_64-pkgconf-1~2.5.1-1-any.pkg.tar.zst
+-- Using cached msys2-msys2-runtime-3.6.5-1-x86_64.pkg.tar.zst
+-- Using msys root at C:/Users/siign/AppData/Local/vcpkg/downloads/tools/msys2/3e71d1f8e22ab23f
+-- Installing: H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/pkgs/nlohmann-json_x64-windows-static-release/share/nlohmann-json/copyright
+-- Performing post-build validation
+Starting submission of nlohmann-json:x64-windows-static-release@3.12.0#2 to 1 binary cache(s) in the background
+Elapsed time to handle nlohmann-json:x64-windows-static-release: 8.2 s
+Completed submission of mio:x64-windows-static-release@2023-03-03 to 1 binary cache(s) in 99.7 ms
+Installing 10/16 parallel-hashmap:x64-windows-static-release@2.0.0...
+parallel-hashmap:x64-windows-static-release@2.0.0 package ABI: bc8c4434769853177630375ecda0d975d372824e5d7c43e43176cf017771670b
+Building parallel-hashmap:x64-windows-static-release@2.0.0...
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\vcpkg\triplets\community\x64-windows-static-release.cmake: info: loaded community triplet from here. Community triplets are not built in the curated registry and are thus less likely to succeed.
+C:\Users\siign\AppData\Local\vcpkg\registries\git-trees\26448d76360f5c0b1b018e1f68fea9d24b598246: info: installing from git registry git+https://github.com/microsoft/vcpkg@26448d76360f5c0b1b018e1f68fea9d24b598246
+-- Using cached greg7mdp-parallel-hashmap-v2.0.0.tar.gz
+-- Extracting source C:/Users/siign/AppData/Local/vcpkg/downloads/greg7mdp-parallel-hashmap-v2.0.0.tar.gz
+-- Using source at H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/blds/parallel-hashmap/src/v2.0.0-7f56771825.clean
+-- Configuring x64-windows-static-release
+-- Building x64-windows-static-release-rel
+-- Installing: H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/pkgs/parallel-hashmap_x64-windows-static-release/share/parallel-hashmap/copyright
+-- Performing post-build validation
+Starting submission of parallel-hashmap:x64-windows-static-release@2.0.0 to 1 binary cache(s) in the background
+Elapsed time to handle parallel-hashmap:x64-windows-static-release: 5.8 s
+Completed submission of nlohmann-json:x64-windows-static-release@3.12.0#2 to 1 binary cache(s) in 195 ms
+Installing 11/16 utf8-range:x64-windows-static-release@6.33.4...
+utf8-range:x64-windows-static-release@6.33.4 package ABI: f916a4116de7339788ab19f8a663f6d5ffdc7cfb52c5537b46ca259e8ab577a5
+Building utf8-range:x64-windows-static-release@6.33.4...
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\vcpkg\triplets\community\x64-windows-static-release.cmake: info: loaded community triplet from here. Community triplets are not built in the curated registry and are thus less likely to succeed.
+C:\Users\siign\AppData\Local\vcpkg\registries\git-trees\9f24dda3a883d4026bb1122c50077c07c9a32f47: info: installing from git registry git+https://github.com/microsoft/vcpkg@9f24dda3a883d4026bb1122c50077c07c9a32f47
+-- Using cached protocolbuffers-protobuf-v33.4.tar.gz
+-- Extracting source C:/Users/siign/AppData/Local/vcpkg/downloads/protocolbuffers-protobuf-v33.4.tar.gz
+-- Applying patch fix-cmake.patch
+-- Using source at H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/blds/utf8-range/src/v33.4-7b17d08241.clean
+-- Configuring x64-windows-static-release
+-- Building x64-windows-static-release-rel
+-- Fixing pkgconfig file: H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/pkgs/utf8-range_x64-windows-static-release/lib/pkgconfig/utf8_range.pc
+-- Using cached msys2-mingw-w64-x86_64-pkgconf-1~2.5.1-1-any.pkg.tar.zst
+-- Using cached msys2-msys2-runtime-3.6.5-1-x86_64.pkg.tar.zst
+-- Using msys root at C:/Users/siign/AppData/Local/vcpkg/downloads/tools/msys2/3e71d1f8e22ab23f
+-- Installing: H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/pkgs/utf8-range_x64-windows-static-release/share/utf8-range/copyright
+-- Performing post-build validation
+Starting submission of utf8-range:x64-windows-static-release@6.33.4 to 1 binary cache(s) in the background
+Elapsed time to handle utf8-range:x64-windows-static-release: 12 s
+Completed submission of parallel-hashmap:x64-windows-static-release@2.0.0 to 1 binary cache(s) in 105 ms
+Installing 12/16 protobuf:x64-windows@6.33.4#1...
+protobuf:x64-windows@6.33.4#1 package ABI: 49f9cf0485d259363948156f2aa10f30593a1de6b5f64dc3c37263c314513cd8
+Building protobuf:x64-windows@6.33.4#1...
+C:\Users\siign\AppData\Local\vcpkg\registries\git-trees\82a850caf35034a45596845a1d6e734b82f6a79a: info: installing from git registry git+https://github.com/microsoft/vcpkg@82a850caf35034a45596845a1d6e734b82f6a79a
+-- Using cached protocolbuffers-protobuf-v33.4.tar.gz
+-- Extracting source C:/Users/siign/AppData/Local/vcpkg/downloads/protocolbuffers-protobuf-v33.4.tar.gz
+-- Applying patch fix-static-build.patch
+-- Applying patch fix-default-proto-file-path.patch
+-- Applying patch fix-utf8-range.patch
+-- Applying patch fix-install-dirs.patch
+-- Applying patch fix-constinit-with-clang-cl.patch
+-- Applying patch fix-upb.patch
+-- Using source at H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/blds/protobuf/src/v33.4-f8b43d71cd.clean
+-- Configuring x64-windows
+-- Building x64-windows-dbg
+CMake Error at scripts/cmake/vcpkg_execute_build_process.cmake:134 (message):
+    Command failed: "C:/Program Files/Microsoft Visual Studio/18/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin/cmake.exe" --build . --config Debug --target install -- -v -j9
+    Working Directory: H:/Github/canary/vcpkg_installed/x64-windows-static-release/vcpkg/blds/protobuf/x64-windows-dbg
+    See logs for more information:
+      H:\Github\canary\vcpkg_installed\x64-windows-static-release\vcpkg\blds\protobuf\install-x64-windows-dbg-out.log
+
+Call Stack (most recent call first):
+  H:/Github/canary/vcpkg_installed/x64-windows-static-release/x64-windows/share/vcpkg-cmake/vcpkg_cmake_build.cmake:74 (vcpkg_execute_build_process)
+  H:/Github/canary/vcpkg_installed/x64-windows-static-release/x64-windows/share/vcpkg-cmake/vcpkg_cmake_install.cmake:16 (vcpkg_cmake_build)
+  C:/Users/siign/AppData/Local/vcpkg/registries/git-trees/82a850caf35034a45596845a1d6e734b82f6a79a/portfile.cmake:66 (vcpkg_cmake_install)
+  scripts/ports.cmake:206 (include)
+
+
+copy_file("H:\Github\canary\vcpkg_installed\x64-windows-static-release\vcpkg\blds\protobuf\x64-windows.vcpkg_abi_info.txt", "H:\Github\canary\vcpkg_installed\x64-windows-static-release\vcpkg\pkgs\protobuf_x64-windows\share\protobuf\vcpkg_abi_info.txt"): The system cannot find the file specified.
+-- Running vcpkg install - failed
+CMake Error at C:/Program Files/Microsoft Visual Studio/18/Community/VC/vcpkg/scripts/buildsystems/vcpkg.cmake:953 (message):
+  vcpkg install failed.  See logs for more information:
+  H:\Github\canary\build\windows-release\vcpkg-manifest-install.log
+Call Stack (most recent call first):
+  C:/Program Files/Microsoft Visual Studio/18/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-4.3/Modules/CMakeDetermineSystem.cmake:146 (include)
+  CMakeLists.txt:86 (project)
+
+
+CMake Error: CMake was unable to find a build program corresponding to "Ninja".  CMAKE_MAKE_PROGRAM is not set.  You probably need to select a different build tool.
+-- Configuring incomplete, errors occurred!

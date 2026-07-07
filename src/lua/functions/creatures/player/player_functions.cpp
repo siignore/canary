@@ -127,6 +127,12 @@ void PlayerFunctions::init(lua_State* L) {
 	Lua::registerMethod(L, "Player", "resetOldCharms", PlayerFunctions::luaPlayerResetOldCharms);
 	Lua::registerMethod(L, "Player", "isPlayer", PlayerFunctions::luaPlayerIsPlayer);
 
+	registerMethod("getStat", PlayerFunctions::luaPlayerGetStat);
+	registerMethod("setStat", PlayerFunctions::luaPlayerSetStat);
+	registerMethod("getUnspentStatPoints", PlayerFunctions::luaPlayerGetUnspentStatPoints);
+	registerMethod("addUnspentStatPoints", PlayerFunctions::luaPlayerAddUnspentStatPoints);
+	registerMethod("spendStatPoint", PlayerFunctions::luaPlayerSpendStatPoint);
+
 	Lua::registerMethod(L, "Player", "getGuid", PlayerFunctions::luaPlayerGetGuid);
 	Lua::registerMethod(L, "Player", "getIp", PlayerFunctions::luaPlayerGetIp);
 	Lua::registerMethod(L, "Player", "getAccountId", PlayerFunctions::luaPlayerGetAccountId);
@@ -521,6 +527,107 @@ void PlayerFunctions::init(lua_State* L) {
 	MountFunctions::init(L);
 	PartyFunctions::init(L);
 	VocationFunctions::init(L);
+}
+
+int PlayerFunctions::luaPlayerGetStat(lua_State* L) {
+    // player:getStat(statName)
+    const auto &player = Lua::getPlayer(L, 1);
+    if (!player) {
+        return 0;
+    }
+
+    const std::string stat = Lua::getString(L, 2);
+    uint32_t value = 0;
+
+    if (stat == "strength") {
+        value = player->getStatStrength();
+    } else if (stat == "dexterity") {
+        value = player->getStatDexterity();
+    } else if (stat == "constitution") {
+        value = player->getStatConstitution();
+    } else if (stat == "intelligence") {
+        value = player->getStatIntelligence();
+    } else if (stat == "wisdom") {
+        value = player->getStatWisdom();
+    } else if (stat == "charisma") {
+        value = player->getStatCharisma();
+    }
+
+    lua_pushnumber(L, value);
+    return 1;
+}
+
+int PlayerFunctions::luaPlayerSetStat(lua_State* L) {
+    // player:setStat(statName, value)
+    const auto &player = Lua::getPlayer(L, 1);
+    if (!player) {
+        return 0;
+    }
+
+    const std::string stat = Lua::getString(L, 2);
+    const uint32_t value = Lua::getNumber<uint32_t>(L, 3);
+
+    if (stat == "strength") {
+        player->setStatStrength(value);
+    } else if (stat == "dexterity") {
+        player->setStatDexterity(value);
+    } else if (stat == "constitution") {
+        player->setStatConstitution(value);
+    } else if (stat == "intelligence") {
+        player->setStatIntelligence(value);
+    } else if (stat == "wisdom") {
+        player->setStatWisdom(value);
+    } else if (stat == "charisma") {
+        player->setStatCharisma(value);
+    }
+
+    lua_pushboolean(L, true);
+    return 1;
+}
+
+int PlayerFunctions::luaPlayerGetUnspentStatPoints(lua_State* L) {
+    // player:getUnspentStatPoints()
+    const auto &player = Lua::getPlayer(L, 1);
+    if (!player) {
+        return 0;
+    }
+
+    lua_pushnumber(L, player->getUnspentStatPoints());
+    return 1;
+}
+
+int PlayerFunctions::luaPlayerAddUnspentStatPoints(lua_State* L) {
+    // player:addUnspentStatPoints(amount)
+    const auto &player = Lua::getPlayer(L, 1);
+    if (!player) {
+        return 0;
+    }
+
+    const uint32_t amount = Lua::getNumber<uint32_t>(L, 2);
+    player->addUnspentStatPoints(amount);
+
+    lua_pushboolean(L, true);
+    return 1;
+}
+
+int PlayerFunctions::luaPlayerSpendStatPoint(lua_State* L) {
+    // player:spendStatPoint(statName, amount)
+    const auto &player = Lua::getPlayer(L, 1);
+    if (!player) {
+        return 0;
+    }
+
+    const std::string stat = Lua::getString(L, 2);
+    const uint32_t amount = Lua::getNumber<uint32_t>(L, 3);
+
+    bool result = player->spendStatPoint(stat, amount);
+    lua_pushboolean(L, result);
+
+	if (player->spendStatPoint(stat, amount)) {
+        player->sendStats();  // Update client
+        return 1;
+    }
+    return 0;
 }
 
 int PlayerFunctions::luaPlayerSendInventory(lua_State* L) {

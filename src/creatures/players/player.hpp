@@ -566,6 +566,38 @@ public:
 	void setLevel(uint32_t newLevel) {
 		level = newLevel;
 	}
+	// Attribute stats setters
+	void setStatStrength(uint32_t value) {
+		statStrength = value;
+	}
+
+	void setStatDexterity(uint32_t value) {
+		statDexterity = value;
+	}
+
+	void setStatConstitution(uint32_t value) {
+		statConstitution = value;
+	}
+
+	void setStatIntelligence(uint32_t value) {
+		statIntelligence = value;
+	}
+
+	void setStatWisdom(uint32_t value) {
+		statWisdom = value;
+	}
+
+	void setStatCharisma(uint32_t value) {
+		statCharisma = value;
+	}
+
+	void setUnspentStatPoints(uint32_t value) {
+		unspentStatPoints = value;
+	}
+
+	void addUnspentStatPoints(uint32_t amount) {
+		unspentStatPoints += amount;
+	}
 	uint8_t getLevelPercent() const {
 		return levelPercent;
 	}
@@ -585,6 +617,34 @@ public:
 	bool isPremium() const;
 	uint32_t getPremiumDays() const;
 	time_t getPremiumLastDay() const;
+
+	// Attribute stats utility methods
+	bool spendStatPoint(const std::string &stat, uint32_t amount) {
+		if (unspentStatPoints < amount) {
+			return false;
+		}
+		
+		unspentStatPoints -= amount;
+		
+		if (stat == "strength") {
+			statStrength += amount;
+		} else if (stat == "dexterity") {
+			statDexterity += amount;
+		} else if (stat == "constitution") {
+			statConstitution += amount;
+		} else if (stat == "intelligence") {
+			statIntelligence += amount;
+		} else if (stat == "wisdom") {
+			statWisdom += amount;
+		} else if (stat == "charisma") {
+			statCharisma += amount;
+		} else {
+			unspentStatPoints += amount; // Refund if invalid stat
+			return false;
+		}
+		
+		return true;
+	}
 
 	bool isVip() const;
 
@@ -651,6 +711,35 @@ public:
 	uint32_t getStashItemCount(uint16_t itemId) const;
 	bool withdrawItem(uint16_t itemId, uint32_t amount);
 	StashItemList getStashItems() const;
+
+	// Attribute stats getters
+	uint32_t getStatStrength() const {
+		return statStrength;
+	}
+
+	uint32_t getStatDexterity() const {
+		return statDexterity;
+	}
+
+	uint32_t getStatConstitution() const {
+		return statConstitution;
+	}
+
+	uint32_t getStatIntelligence() const {
+		return statIntelligence;
+	}
+
+	uint32_t getStatWisdom() const {
+		return statWisdom;
+	}
+
+	uint32_t getStatCharisma() const {
+		return statCharisma;
+	}
+
+	uint32_t getUnspentStatPoints() const {
+		return unspentStatPoints;
+	}
 
 	uint32_t getBaseCapacity() const;
 
@@ -1774,6 +1863,14 @@ private:
 	uint32_t manaMax = 0;
 	int32_t varSkills[SKILL_LAST + 1] = {};
 	int32_t varStats[STAT_LAST + 1] = {};
+	// Attribute stats system
+	uint32_t statStrength = 0;
+	uint32_t statDexterity = 0;
+	uint32_t statConstitution = 0;
+	uint32_t statIntelligence = 0;
+	uint32_t statWisdom = 0;
+	uint32_t statCharisma = 0;
+	uint32_t unspentStatPoints = 0;
 	int32_t shopCallback = -1;
 	int32_t MessageBufferCount = 0;
 	int32_t bloodHitCount = 0;

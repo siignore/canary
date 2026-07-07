@@ -153,6 +153,13 @@ CREATE TABLE IF NOT EXISTS `players` (
     `boss_points` int NOT NULL DEFAULT '0',
     `comment` varchar(255) NOT NULL DEFAULT '',
     `animus_mastery` mediumblob DEFAULT NULL,
+    `stat_strength` int(11) NOT NULL DEFAULT '0',
+    `stat_dexterity` int(11) NOT NULL DEFAULT '0',
+    `stat_constitution` int(11) NOT NULL DEFAULT '0',
+    `stat_intelligence` int(11) NOT NULL DEFAULT '0',
+    `stat_wisdom` int(11) NOT NULL DEFAULT '0',
+    `stat_charisma` int(11) NOT NULL DEFAULT '0',
+    `unspent_stat_points` int(11) NOT NULL DEFAULT '0'
     INDEX `account_id` (`account_id`),
     INDEX `vocation` (`vocation`),
     CONSTRAINT `players_pk` PRIMARY KEY (`id`),

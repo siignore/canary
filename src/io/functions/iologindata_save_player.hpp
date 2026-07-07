@@ -30,6 +30,7 @@ public:
 	static bool savePlayerForgeHistory(const std::shared_ptr<Player> &player);
 	static bool savePlayerBosstiary(const std::shared_ptr<Player> &player);
 	static bool savePlayerStorage(const std::shared_ptr<Player> &player);
+	static bool savePlayerStats(const std::shared_ptr<Player> &player);
 	/**
 	 * @brief Saves the player's systems state to persistent key-value storage.
 	 *

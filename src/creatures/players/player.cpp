@@ -125,6 +125,29 @@ Player::Player() :
 	m_weaponProficiency(*this) {
 }
 
+// Stat Balance Configuration - Adjust these values to balance the stat system
+struct StatBalance {
+    // Strength: Melee damage bonus
+    static constexpr uint32_t STRENGTH_DAMAGE_DIVISOR = 5;      // +1 damage per 5 Strength
+    
+    // Dexterity: Attack speed and critical chance
+    static constexpr uint32_t DEXTERITY_SPEED_DIVISOR = 10;     // Divide dexterity by 10
+    static constexpr uint32_t DEXTERITY_SPEED_REDUCTION = 50;   // Reduce speed by 50ms per divisor
+    static constexpr double_t DEXTERITY_CRITICAL_MULTIPLIER = 0.001;  // +0.1% critical per point
+    
+    // Constitution: Health bonus
+    static constexpr uint32_t CONSTITUTION_HEALTH_DIVISOR = 2;  // +1 health per 2 Constitution
+    
+    // Intelligence: Magic level bonus
+    static constexpr uint32_t INTELLIGENCE_MAGLEVEL_DIVISOR = 10;  // +1 magic level per 10 Intelligence
+    
+    // Wisdom: Mana bonus
+    static constexpr uint32_t WISDOM_MANA_DIVISOR = 2;          // +1 mana per 2 Wisdom
+    
+    // Charisma: Shop price bonus
+    static constexpr uint32_t CHARISMA_PRICE_DIVISOR = 5;       // ±1% price per 5 Charisma
+};
+
 Player::Player(std::shared_ptr<ProtocolGame> p) :
 	lastPing(OTSYS_TIME()),
 	lastPong(lastPing),
@@ -629,7 +652,9 @@ uint16_t Player::attackTotal(uint16_t flatBonus, uint16_t equipment, uint16_t sk
 
 	const double skillFactor = (skill + 4) / 28.;
 
-	return flatBonus + (fightFactor * skillFactor);
+	// ADD THIS: Strength bonus to damage
+    uint16_t strengthBonus = (getStatStrength() / StatBalance::STRENGTH_DAMAGE_DIVISOR);
+	return flatBonus + strengthBonus + (fightFactor * skillFactor);
 }
 
 uint16_t Player::attackRawTotal(uint16_t flatBonus, uint16_t equipment, uint16_t skill) const {
@@ -3620,6 +3645,11 @@ void Player::addExperience(const std::shared_ptr<Creature> &target, uint64_t exp
 			mana += vocation->getManaGain();
 			capacity += vocation->getCapGain();
 		}
+
+		// Grant stat points every 5 levels
+        if (level % 5 == 0) {
+            addUnspentStatPoints(1);
+        }
 
 		currLevelExp = nextLevelExp;
 		nextLevelExp = getExpForLevel(level + 1);
@@ -7165,7 +7195,10 @@ bool Player::isPromoted() const {
 }
 
 uint32_t Player::getAttackSpeed() const {
-	return vocation->getAttackSpeed();
+    uint32_t speed = vocation->getAttackSpeed();
+	uint32_t dexterityBonus = (getStatDexterity() / StatBalance::DEXTERITY_SPEED_DIVISOR) * StatBalance::DEXTERITY_SPEED_REDUCTION;
+	speed = (speed > dexterityBonus) ? speed - dexterityBonus : 100;
+	return speed;
 }
 
 double Player::getLostPercent() const {
@@ -7244,6 +7277,9 @@ uint32_t Player::getMagicLevel() const {
 	magic += m_wheelPlayer.getStat(WheelStat_t::MAGIC); // Regular bonus
 	magic += m_wheelPlayer.getMajorStatConditional("Positional Tactics", WheelMajor_t::MAGIC); // Revelation bonus
 	magic += m_weaponProficiency.getSkillBonus(SKILL_MAGLEVEL);
+
+	// ADD THIS: Intelligence bonus to magic level
+    magic += (getStatIntelligence() / StatBalance::INTELLIGENCE_MAGLEVEL_DIVISOR);
 	return magic;
 }
 
@@ -7275,11 +7311,15 @@ uint32_t Player::getLoyaltyMagicLevel() const {
 }
 
 int32_t Player::getMaxHealth() const {
-	return std::max<int32_t>(1, healthMax + varStats[STAT_MAXHITPOINTS] + m_wheelPlayer.getStat(WheelStat_t::HEALTH));
+    int32_t health = std::max<int32_t>(1, healthMax + varStats[STAT_MAXHITPOINTS] + m_wheelPlayer.getStat(WheelStat_t::HEALTH));
+	health += (getStatConstitution() / StatBalance::CONSTITUTION_HEALTH_DIVISOR);
+	return health;
 }
 
 uint32_t Player::getMaxMana() const {
-	return std::max<int32_t>(0, manaMax + varStats[STAT_MAXMANAPOINTS] + m_wheelPlayer.getStat(WheelStat_t::MANA));
+    uint32_t mana = std::max<int32_t>(0, manaMax + varStats[STAT_MAXMANAPOINTS] + m_wheelPlayer.getStat(WheelStat_t::MANA));
+	mana += (getStatWisdom() / StatBalance::WISDOM_MANA_DIVISOR);
+	return mana;
 }
 
 bool Player::hasExtraSwing() {
@@ -12287,24 +12327,29 @@ void Player::onRemoveInventoryItem(const std::shared_ptr<Item> &item) {
 }
 
 uint64_t Player::getItemCustomPrice(uint16_t itemId, bool buyPrice) const {
-	auto it = itemPriceMap.find(itemId);
-	if (it != itemPriceMap.end()) {
-		return it->second;
+    auto it = itemPriceMap.find(itemId);
+    if (it != itemPriceMap.end()) {
+        return it->second;
+    }
+
+    const std::map<uint16_t, uint64_t> itemMap { { itemId, 1 } };
+    uint64_t price = g_game().getItemMarketPrice(itemMap, buyPrice);
+    
+    // Charisma bonus: Better NPC prices
+    // -1% buy price per 5 Charisma (pay less)
+    // +1% sell price per 5 Charisma (get more)
+    if (price > 0) {
+   		uint32_t charismaBonus = getStatCharisma() / StatBalance::CHARISMA_PRICE_DIVISOR;
+		if (buyPrice) {
+			uint64_t discount = (price * charismaBonus) / 100;
+			price = (price > discount) ? price - discount : 1;
+		} else {
+			uint64_t bonus = (price * charismaBonus) / 100;
+			price += bonus;
+		}
 	}
-
-	const std::map<uint16_t, uint64_t> itemMap { { itemId, 1 } };
-	return g_game().getItemMarketPrice(itemMap, buyPrice);
-}
-
-uint32_t Player::getFreeBackpackSlots() const {
-	const auto &backpack = getBackpack();
-	if (!backpack) {
-		return 0;
-	}
-
-	const auto counter = std::max<uint32_t>(0, backpack->getFreeSlots());
-
-	return counter;
+    
+    return price;
 }
 
 bool Player::canAutoWalk(const Position &toPosition, const std::function<void()> &function, uint32_t delay) {

@@ -112,6 +112,9 @@ bool IOLoginData::loadPlayer(const std::shared_ptr<Player> &player, const DBResu
 		// Blessings load
 		IOLoginDataLoad::loadPlayerBlessings(player, result);
 
+		// Stats load
+		IOLoginDataLoad::loadPlayerStats(player, result);
+
 		// load conditions
 		IOLoginDataLoad::loadPlayerConditions(player, result);
 
@@ -217,6 +220,10 @@ bool IOLoginData::savePlayerGuard(const std::shared_ptr<Player> &player) {
 
 	if (!IOLoginDataSave::savePlayerFirst(player)) {
 		throw DatabaseException("[" + std::string(__FUNCTION__) + "] - Failed to save player first: " + player->getName());
+	}
+
+	if (!IOLoginDataSave::savePlayerStats(player)) {
+		throw DatabaseException("[IOLoginDataSave::savePlayerStats] - Failed to save player stats: " + player->getName());
 	}
 
 	if (!IOLoginDataSave::savePlayerStash(player)) {

@@ -253,6 +253,21 @@ void IOLoginDataLoad::loadPlayerBlessings(const std::shared_ptr<Player> &player,
 	}
 }
 
+void IOLoginDataLoad::loadPlayerStats(const std::shared_ptr<Player> &player, const DBResult_ptr &result) {
+    if (!result || !player) {
+        g_logger().warn("[{}] - Player or Result nullptr", __FUNCTION__);
+        return;
+    }
+
+    player->setStatStrength(result->getNumber<uint32_t>("stat_strength"));
+    player->setStatDexterity(result->getNumber<uint32_t>("stat_dexterity"));
+    player->setStatConstitution(result->getNumber<uint32_t>("stat_constitution"));
+    player->setStatIntelligence(result->getNumber<uint32_t>("stat_intelligence"));
+    player->setStatWisdom(result->getNumber<uint32_t>("stat_wisdom"));
+    player->setStatCharisma(result->getNumber<uint32_t>("stat_charisma"));
+    player->setUnspentStatPoints(result->getNumber<uint32_t>("unspent_stat_points"));
+}
+
 void IOLoginDataLoad::loadPlayerConditions(const std::shared_ptr<Player> &player, const DBResult_ptr &result) {
 	if (!result || !player) {
 		g_logger().warn("[{}] - Player or Result nullptr", __FUNCTION__);
