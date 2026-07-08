@@ -8,6 +8,12 @@
  */
 #pragma once
 
+#ifndef USE_PRECOMPILED_HEADERS
+  #include <string>
+  #include <chrono>
+  #include <fmt/core.h>
+#endif
+
 #include "utils/transparent_string_hash.hpp"
 
 namespace spdlog {

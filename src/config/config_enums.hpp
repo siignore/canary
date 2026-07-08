@@ -9,6 +9,10 @@
 
 #pragma once
 
+#ifndef USE_PRECOMPILED_HEADERS
+	#include <cstdint>
+#endif
+
 // Enum
 enum ConfigKey_t : uint16_t {
 	ACTIONS_DELAY_INTERVAL,

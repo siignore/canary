@@ -9,6 +9,12 @@
 
 #pragma once
 
+#ifndef USE_PRECOMPILED_HEADERS
+	#include <cstdint>
+	#include <memory>
+	#include <string>
+#endif
+
 struct AccountInfo;
 
 enum class AccountErrors_t : uint8_t;

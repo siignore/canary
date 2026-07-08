@@ -101,6 +101,21 @@ endif()
 # Include CanaryLib which populates sources/settings on CORE_TARGET_NAME
 include(CanaryLib)
 
+# Setup precompiled headers if enabled
+if(USE_PRECOMPILED_HEADER)
+    foreach(core_target IN LISTS CANARY_CORE_TARGETS)
+        target_precompile_headers(
+            ${core_target}
+            PRIVATE
+            ${CMAKE_CURRENT_SOURCE_DIR}/pch.hpp
+        )
+        target_compile_definitions(
+            ${core_target}
+            PRIVATE USE_PRECOMPILED_HEADERS
+        )
+    endforeach()
+endif()
+
 # Compiler warnings and options
 if(UNIX)
     if(CMAKE_BUILD_TYPE

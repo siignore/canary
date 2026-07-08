@@ -9,6 +9,12 @@
 
 #pragma once
 
+#ifndef USE_PRECOMPILED_HEADERS
+  #include <map>
+  #include <memory>
+  #include <filesystem>
+#endif
+
 #include "creatures/appearance/outfit/outfit.hpp"
 #include "creatures/players/components/player_badge.hpp"
 #include "creatures/players/components/player_title.hpp"

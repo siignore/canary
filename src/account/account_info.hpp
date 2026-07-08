@@ -14,7 +14,7 @@
 	#include <cstdint>
 #endif
 
-#include "enums/account_type.hpp"
+#include "../enums/account_type.hpp"
 
 struct AccountInfo {
 	~AccountInfo() = default;

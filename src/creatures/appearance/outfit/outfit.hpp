@@ -9,6 +9,13 @@
 
 #pragma once
 
+#ifndef USE_PRECOMPILED_HEADERS
+	#include <cstdint>
+	#include <string>
+	#include <memory>
+	#include <vector>
+#endif
+
 enum PlayerSex_t : uint8_t;
 class Player;
 

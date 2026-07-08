@@ -9,6 +9,10 @@
 
 #pragma once
 
+#ifndef USE_PRECOMPILED_HEADERS
+  #include <cstdint>
+#endif
+
 struct AccountInfo;
 
 enum class CoinType : uint8_t;

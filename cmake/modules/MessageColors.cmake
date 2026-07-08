@@ -1,0 +1,23 @@
+# Color output for CMake messages
+# This module provides color constants for use in CMake message output
+
+if(NOT WIN32 AND NOT APPLE)
+	string(ASCII 27 Esc)
+	set(ColorReset "${Esc}[m")
+	set(ColorBold "${Esc}[1m")
+	set(ColorRed "${Esc}[31m")
+	set(ColorGreen "${Esc}[32m")
+	set(ColorYellow "${Esc}[33m")
+	set(ColorBlue "${Esc}[34m")
+	set(ColorMagenta "${Esc}[35m")
+	set(ColorCyan "${Esc}[36m")
+else()
+	set(ColorReset "")
+	set(ColorBold "")
+	set(ColorRed "")
+	set(ColorGreen "")
+	set(ColorYellow "")
+	set(ColorBlue "")
+	set(ColorMagenta "")
+	set(ColorCyan "")
+endif()

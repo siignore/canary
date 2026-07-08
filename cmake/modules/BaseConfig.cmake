@@ -78,8 +78,70 @@ endif()
 # *****************************************************************************
 # Find packages for non-problematic vcpkg packages
 # *****************************************************************************
-find_package(LuaJIT REQUIRED)
-find_package(MySQL REQUIRED)
+# Helper function to find vcpkg root
+if(DEFINED VCPKG_INSTALLED_DIR)
+    message(STATUS "VCPKG_INSTALLED_DIR: ${VCPKG_INSTALLED_DIR}")
+    message(STATUS "VCPKG_TARGET_TRIPLET: ${VCPKG_TARGET_TRIPLET}")
+
+    # Try to find actual vcpkg root - handle multiple possible nested structures
+    set(_VCPKG_ROOT "")
+
+    # Check if VCPKG_INSTALLED_DIR itself has the packages
+    if(EXISTS "${VCPKG_INSTALLED_DIR}/include/luajit")
+        set(_VCPKG_ROOT "${VCPKG_INSTALLED_DIR}")
+    # Check if there's a triplet subdirectory
+    elseif(EXISTS "${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/include/luajit")
+        set(_VCPKG_ROOT "${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}")
+    # Check for x64-windows fallback
+    elseif(EXISTS "${VCPKG_INSTALLED_DIR}/x64-windows/include/luajit")
+        set(_VCPKG_ROOT "${VCPKG_INSTALLED_DIR}/x64-windows")
+    # Check parent directory
+    elseif(EXISTS "${VCPKG_INSTALLED_DIR}/../x64-windows/include/luajit")
+        set(_VCPKG_ROOT "${VCPKG_INSTALLED_DIR}/../x64-windows")
+    # Last resort - check for any x64-windows in vcpkg_installed
+    elseif(EXISTS "vcpkg_installed/x64-windows/x64-windows/x64-windows/include/luajit")
+        set(_VCPKG_ROOT "vcpkg_installed/x64-windows/x64-windows/x64-windows")
+    else()
+        message(FATAL_ERROR "Could not find vcpkg packages (LuaJIT) in any expected location")
+    endif()
+
+    message(STATUS "_VCPKG_ROOT: ${_VCPKG_ROOT}")
+
+    # LuaJIT - manually configure since vcpkg doesn't provide config files
+    set(LuaJIT_INCLUDE_DIR "${_VCPKG_ROOT}/include/luajit")
+    set(LuaJIT_LIBRARY "${_VCPKG_ROOT}/lib/lua51.lib")
+
+    if(EXISTS "${LuaJIT_INCLUDE_DIR}/lua.h" AND EXISTS "${LuaJIT_LIBRARY}")
+        add_library(LuaJIT::LuaJIT UNKNOWN IMPORTED)
+        set_target_properties(LuaJIT::LuaJIT PROPERTIES
+            IMPORTED_LOCATION "${LuaJIT_LIBRARY}"
+            INTERFACE_INCLUDE_DIRECTORIES "${LuaJIT_INCLUDE_DIR}"
+        )
+        set(LuaJIT_FOUND TRUE)
+        message(STATUS "LuaJIT found at ${_VCPKG_ROOT}")
+    else()
+        message(FATAL_ERROR "LuaJIT not found at ${LuaJIT_INCLUDE_DIR}")
+    endif()
+
+    # MySQL/MariaDB - manually configure
+    set(MySQL_INCLUDE_DIR "${_VCPKG_ROOT}/include/mysql")
+    set(MySQL_LIBRARY "${_VCPKG_ROOT}/lib/libmariadb.lib")
+
+    if((EXISTS "${MySQL_INCLUDE_DIR}") AND (EXISTS "${MySQL_LIBRARY}"))
+        add_library(MySQL::MySQL UNKNOWN IMPORTED)
+        set_target_properties(MySQL::MySQL PROPERTIES
+            IMPORTED_LOCATION "${MySQL_LIBRARY}"
+            INTERFACE_INCLUDE_DIRECTORIES "${MySQL_INCLUDE_DIR}"
+        )
+        set(MySQL_FOUND TRUE)
+        message(STATUS "MySQL found at ${_VCPKG_ROOT}")
+    else()
+        message(FATAL_ERROR "MySQL not found at ${MySQL_INCLUDE_DIR} or ${MySQL_LIBRARY}")
+    endif()
+else()
+    message(FATAL_ERROR "VCPKG_INSTALLED_DIR not set")
+endif()
+
 find_package(Threads REQUIRED)
 find_package(ZLIB REQUIRED)
 

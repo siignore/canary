@@ -9,6 +9,17 @@
 
 #pragma once
 
+#ifndef USE_PRECOMPILED_HEADERS
+	#include <cstdint>
+	#include <string>
+	#include <vector>
+	#include <variant>
+	#include <unordered_map>
+	#include <source_location>
+#endif
+
+struct lua_State;
+
 #include "config_enums.hpp"
 
 using ConfigValue = std::variant<std::string, int32_t, bool, float>;
